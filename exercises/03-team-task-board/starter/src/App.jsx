@@ -41,7 +41,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-100 flex">
 
-      {/* Sidebar */}
+     
       <aside className="w-52 shrink-0 bg-white border-r border-slate-200 p-5">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Team</h2>
         <ul className="space-y-3">
