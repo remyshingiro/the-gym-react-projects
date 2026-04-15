@@ -30,12 +30,13 @@ const PRIORITY_COLORS = {
 }
 
 export default function App() {
-
-  const {state} = useTasks();
+  // destructure state and disptach to be able to access them globally
+  const {state, dispatch} = useTasks();
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('high');
   const [assigneeId,  setAssigneeId] = useState(1);
-
+  
+  console.log(priority)
 
 
   return (
@@ -66,23 +67,37 @@ export default function App() {
 
           {/* Add task form — hardcoded, you will make this work */}
           <div className="flex gap-2">
+            {/* onchange fun to update user typings */}
             <input
               type="text"
               placeholder="Task title..."
               className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-indigo-400"
               onChange={(e) => setTitle(e.target.value)}
             />
-            <select className="border border-slate-200 rounded-lg px-2 py-1.5 text-sm outline-none">
-              <option>High</option>
-              <option>Medium</option>
-              <option>Low</option>
+            {/* added onchange fn to update priority state */}
+            <select className="border border-slate-200 rounded-lg px-2 py-1.5 text-sm outline-none"
+            onChange={(e)=> setPriority(e.target.value)}
+            value={priority}>
+              
+              <option value='high' >High</option>
+              <option value='medium'>Medium</option>
+              <option value='low'>Low</option>
             </select>
-            <select className="border border-slate-200 rounded-lg px-2 py-1.5 text-sm outline-none">
+            <select className="border border-slate-200 rounded-lg px-2 py-1.5 text-sm outline-none"
+            value={assigneeId}
+            onChange={(e)=> setAssigneeId(Number(e.target.value))}>
               {teamMembers.map(m => (
                 <option key={m.id} value={m.id}>{m.name.split(' ')[0]}</option>
               ))}
             </select>
-            <button className="bg-indigo-600 text-white rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-indigo-700 transition-colors">
+            {/* checking empty field before adding task/ add fn using dispatch and takes action and payload */}
+            <button className="bg-indigo-600 text-white rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-indigo-700 transition-colors"
+            onClick={()=>{ 
+              if(title === '') return
+               dispatch( {
+              type: 'ADD_TASK',
+              payload: {title, priority, assigneeId}
+            })}}>
               Add
             </button>
           </div>
