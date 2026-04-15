@@ -149,6 +149,12 @@ export default function App() {
                             />
                           )}
                         </div>
+                        <button className='bg-red-400 rounded-md'
+                        onClick={()=>{
+                          dispatch({
+                          type: 'DELETE_TASK',
+                          payload: {id: task.id}
+                        })}}>🗑️</button>
                       </div>
                     )
                   })}
