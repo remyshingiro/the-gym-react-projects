@@ -156,6 +156,18 @@ export default function App() {
                           type: 'DELETE_TASK',
                           payload: {id: task.id}
                         })}}>🗑️</button>
+
+                        <button
+                        onClick={()=>{
+                          dispatch({
+                            type: 'MOVE_TASK',
+                            payload: { 
+                              id: task.id,
+                              newStatus: 'inprogress'}
+                          })
+                        }}>
+                          Move ➡️
+                        </button>
                       </div>
                     )
                   })}
