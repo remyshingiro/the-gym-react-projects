@@ -149,6 +149,7 @@ export default function App() {
                             />
                           )}
                         </div>
+                        {/* added delete button to remove task from board */}
                         <button className='bg-red-400 rounded-md'
                         onClick={()=>{
                           dispatch({
