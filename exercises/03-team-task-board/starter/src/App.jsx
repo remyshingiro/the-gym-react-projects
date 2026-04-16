@@ -38,7 +38,7 @@ export default function App() {
   //barible to keep track of task id being moved
   const [draggedTaskId, setDraggedTaskId] = useState(null)
   
-
+  console.log(draggedTaskId)
 
   return (
     <div className="min-h-screen bg-slate-100 flex">
@@ -123,7 +123,9 @@ export default function App() {
           {COLUMNS.map(col => {
             const colTasks = state.tasks.filter(t => t.status === col.status)
             return (
-              <div key={col.status} className="bg-slate-200/70 rounded-xl p-3">
+              <div key={col.status} className="bg-slate-200/70 rounded-xl p-3"
+              onDragOver={(e)=>preventDefault(e)}
+              onDrop={draggedTaskId()}>
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-sm font-semibold text-slate-600">{col.label}</h2>
                   <span className="bg-slate-300 text-slate-600 text-xs rounded-full px-2 py-0.5">
