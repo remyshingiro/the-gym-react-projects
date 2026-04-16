@@ -115,22 +115,53 @@ export default function App() {
 
         {/* Filters */}
         <div className="flex gap-3 mb-5">
-          <select className="border border-slate-200 bg-white rounded-lg px-3 py-1.5 text-sm outline-none">
-            <option>All Members</option>
+          <select className="border border-slate-200 bg-white rounded-lg px-3 py-1.5 text-sm outline-none"
+          onChange={(e)=>{
+            const value = e.target.value
+            dispatch({
+              type: 'SET_FILTER',
+              payload: {assigneeId: value === ''? null : Number(value)}
+            })
+          }}>
+            <option value={''}>All Members</option>
             {teamMembers.map(m => <option key={m.id}>{m.name}</option>)}
           </select>
-          <select className="border border-slate-200 bg-white rounded-lg px-3 py-1.5 text-sm outline-none">
-            <option>All Priorities</option>
-            <option>High</option>
-            <option>Medium</option>
-            <option>Low</option>
+          <select className="border border-slate-200 bg-white rounded-lg px-3 py-1.5 text-sm outline-none"
+          // func to handle filtering 
+          onChange={(e)=>{
+            //saving user selection as event
+            const value = e.target.value;
+            dispatch({
+              type: 'SET_FILTER',
+              payload: {
+                priority: value === '' ? null : value }
+            })
+          }}>
+            {/* adding the values to enable easy filtering */}
+            <option value={''}>All Priorities</option>
+            <option value={'high'}>High</option>
+            <option value={'medium'}>Medium</option>
+            <option value={'low'}>Low</option>
           </select>
         </div>
 
         {/* Board */}
         <div className="grid grid-cols-3 gap-4">
           {COLUMNS.map(col => {
-            const colTasks = state.tasks.filter(t => t.status === col.status)
+            //filtering all tasks by status & assigneeId & priority
+            const colTasks = state.tasks.filter(task => {
+              const matchesStatus = task.status === col.status
+              //filtering with assignee id
+              const matchesAssignee =
+                state.filters.assigneeId === null ||
+                task.assigneeId === state.filters.assigneeId
+              //filtering wiht priority
+              const matchesPriority =
+                state.filters.priority === null ||
+                task.priority === state.filters.priority
+              //returning with all matching conditions
+              return matchesStatus && matchesAssignee && matchesPriority
+            })
             return (
               // conditional ui changing while dragging over column
               <div key={col.status} className={col.status === dragOverColumn? "bg-green-200 rounded-2xl" : "bg-slate-200/70 rounded-xl p-3"}
@@ -168,7 +199,9 @@ export default function App() {
                     const assignee = teamMembers.find(m => m.id === task.assigneeId)
                     return (
                       <div key={task.id} className="bg-white rounded-lg p-3 shadow-sm"
+                      //making card draggable
                       draggable={true}
+                      // keeping task id on drag start
                       onDragStart={()=>setDraggedTaskId(task.id)}>
                         <p className="text-sm font-medium text-slate-800 mb-2 leading-snug">
                           {task.title}
