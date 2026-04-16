@@ -53,8 +53,9 @@ export default function App() {
           {teamMembers.map(member => {
             //filtering each member tasks from tasks array
             const memberTasks = state.tasks.filter((t)=>t.assigneeId === member.id);
-            //cou
+            //counting individual tasks
             const totalTasks = memberTasks.length;
+            //filtering completed tasks & counting them
             const completedTasks = memberTasks.filter((t)=>{
               return t.status === 'done'
             }).length;
