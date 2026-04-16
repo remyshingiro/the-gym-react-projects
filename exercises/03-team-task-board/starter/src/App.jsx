@@ -50,7 +50,14 @@ export default function App() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-200 p-5">
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Team</h2>
         <ul className="space-y-3">
-          {teamMembers.map(member => (
+          {teamMembers.map(member => {
+            const memberTasks = state.tasks.filter((t)=>t.assigneeId === member.id)
+            const totalTasks = memberTasks.length;
+            const completedTasks = memberTasks.filter((t)=>{
+              return t.status === 'done'
+            }).length;
+            
+            return (
             <li key={member.id} className="flex items-center gap-2.5">
               <img src={member.avatar} alt={member.name} className="w-7 h-7 rounded-full" />
               <div>
@@ -58,7 +65,7 @@ export default function App() {
                 <p className="text-xs text-slate-400">{member.role}</p>
               </div>
             </li>
-          ))}
+          )})}
         </ul>
       </aside>
 
