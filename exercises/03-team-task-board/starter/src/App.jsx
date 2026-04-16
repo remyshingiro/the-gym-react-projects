@@ -37,8 +37,11 @@ export default function App() {
   const [assigneeId,  setAssigneeId] = useState(1);
   //barible to keep track of task id being moved
   const [draggedTaskId, setDraggedTaskId] = useState(null)
+  //state to keep in track of active column to drap over
+  const [dragOverColumn, setDragOverColumn] = useState(null)
   
-  console.log(draggedTaskId)
+
+  
 
   return (
     <div className="min-h-screen bg-slate-100 flex">
@@ -123,8 +126,11 @@ export default function App() {
           {COLUMNS.map(col => {
             const colTasks = state.tasks.filter(t => t.status === col.status)
             return (
-              <div key={col.status} className="bg-slate-200/70 rounded-xl p-3"
+              // conditional ui changing while dragging over column
+              <div key={col.status} className={col.status === dragOverColumn? "bg-green-200 rounded-2xl" : "bg-slate-200/70 rounded-xl p-3"}
+              // preventing defaults events on drag over
               onDragOver={(e)=>e.preventDefault()}
+              // moving cards to different status with ondrop
               onDrop={()=>{
                 const id = draggedTaskId;
                 const newStatus = col.status;
@@ -132,7 +138,19 @@ export default function App() {
                   type: 'MOVE_TASK',
                   payload: {id, newStatus}
                 })
-              }}>
+                // resetting dragged taskId and column ui colors
+                setDraggedTaskId(null)
+                setDragOverColumn(null)
+              }}
+              // saving column status on drag enter
+              onDragEnter={()=>{
+                setDragOverColumn(col.status)
+              }}
+              // resetting state after leaving column
+              onDragLeave={()=>{
+                setDragOverColumn(null)
+              }}
+              >
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-sm font-semibold text-slate-600">{col.label}</h2>
                   <span className="bg-slate-300 text-slate-600 text-xs rounded-full px-2 py-0.5">
