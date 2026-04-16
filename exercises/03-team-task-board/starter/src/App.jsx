@@ -74,6 +74,7 @@ export default function App() {
             {/* onchange fun to update user typings */}
             <input
               type="text"
+              value={title}
               placeholder="Task title..."
               className="border border-slate-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-indigo-400"
               onChange={(e) => setTitle(e.target.value)}
@@ -101,7 +102,12 @@ export default function App() {
                dispatch( {
               type: 'ADD_TASK',
               payload: {title, priority, assigneeId}
-            })}}>
+            })
+            //resetting all title, assignee and priority after adding task.
+            setTitle('');
+            setAssigneeId(1);
+            setPriority('high')
+            }}>
               Add
             </button>
           </div>
