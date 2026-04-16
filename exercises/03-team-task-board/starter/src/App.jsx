@@ -124,8 +124,15 @@ export default function App() {
             const colTasks = state.tasks.filter(t => t.status === col.status)
             return (
               <div key={col.status} className="bg-slate-200/70 rounded-xl p-3"
-              onDragOver={(e)=>preventDefault(e)}
-              onDrop={draggedTaskId()}>
+              onDragOver={(e)=>e.preventDefault()}
+              onDrop={()=>{
+                const id = draggedTaskId;
+                const newStatus = col.status;
+                dispatch({
+                  type: 'MOVE_TASK',
+                  payload: {id, newStatus}
+                })
+              }}>
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="text-sm font-semibold text-slate-600">{col.label}</h2>
                   <span className="bg-slate-300 text-slate-600 text-xs rounded-full px-2 py-0.5">
