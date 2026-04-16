@@ -20,11 +20,11 @@ export const initialState = {
     }
 }
 
-
+//try generating id wih uuid rather than dat.now
 export function taskReducer(state, action) {
     switch(action.type) {
         case 'ADD_TASK': {
-            const {title, priority, assigneeId} = action.payload;
+            const {title, priority, assigneeId} = action.payload;   
             const newTask = {
                 id: Date.now(),
                 title,

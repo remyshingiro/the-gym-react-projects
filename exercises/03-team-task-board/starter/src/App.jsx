@@ -35,8 +35,9 @@ export default function App() {
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('high');
   const [assigneeId,  setAssigneeId] = useState(1);
+  //barible to keep track of task id being moved
+  const [draggedTaskId, setDraggedTaskId] = useState(null)
   
-  console.log(priority)
 
 
   return (
@@ -133,7 +134,9 @@ export default function App() {
                   {colTasks.map(task => {
                     const assignee = teamMembers.find(m => m.id === task.assigneeId)
                     return (
-                      <div key={task.id} className="bg-white rounded-lg p-3 shadow-sm">
+                      <div key={task.id} className="bg-white rounded-lg p-3 shadow-sm"
+                      draggable={true}
+                      onDragStart={()=>setDraggedTaskId(task.id)}>
                         <p className="text-sm font-medium text-slate-800 mb-2 leading-snug">
                           {task.title}
                         </p>
@@ -157,17 +160,20 @@ export default function App() {
                           payload: {id: task.id}
                         })}}>🗑️</button>
 
-                        <button
+                        
+
+                        {/* <button
                         onClick={()=>{
                           dispatch({
                             type: 'MOVE_TASK',
                             payload: { 
                               id: task.id,
-                              newStatus: 'inprogress'}
+                              newStatus: 'todo'}
                           })
                         }}>
                           Move ➡️
-                        </button>
+                        </button> */}
+                        
                       </div>
                     )
                   })}
