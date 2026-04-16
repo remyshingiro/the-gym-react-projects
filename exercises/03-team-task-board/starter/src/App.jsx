@@ -51,7 +51,9 @@ export default function App() {
         <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-4">Team</h2>
         <ul className="space-y-3">
           {teamMembers.map(member => {
-            const memberTasks = state.tasks.filter((t)=>t.assigneeId === member.id)
+            //filtering each member tasks from tasks array
+            const memberTasks = state.tasks.filter((t)=>t.assigneeId === member.id);
+            //cou
             const totalTasks = memberTasks.length;
             const completedTasks = memberTasks.filter((t)=>{
               return t.status === 'done'
@@ -63,6 +65,8 @@ export default function App() {
               <div>
                 <p className="text-sm font-medium text-slate-700">{member.name.split(' ')[0]}</p>
                 <p className="text-xs text-slate-400">{member.role}</p>
+                {/* displaying data on ui */}
+                <p className='text-sm font-medium text-slate-700'>{totalTasks} Tasks . {completedTasks} Done</p>
               </div>
             </li>
           )})}
