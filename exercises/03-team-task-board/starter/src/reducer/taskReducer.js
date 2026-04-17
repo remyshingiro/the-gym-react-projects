@@ -1,4 +1,5 @@
 import { useReducer } from "react"
+import {v4 as uuidv4} from 'uuid';
 /*
 ACTIONS:
 
@@ -20,13 +21,13 @@ export const initialState = {
     }
 }
 
-//try generating id wih uuid rather than dat.now
+//try generating id wih uuidv4 rather than date
 export function taskReducer(state, action) {
     switch(action.type) {
         case 'ADD_TASK': {
             const {title, priority, assigneeId} = action.payload;   
             const newTask = {
-                id: Date.now(),
+                id: uuidv4(),
                 title,
                 priority,
                 assigneeId,
