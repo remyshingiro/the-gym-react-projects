@@ -229,8 +229,8 @@ export default function App() {
                               className="w-5 h-5 rounded-full"
                             />
                           )}
-                        </div>
-                        {/* added delete button to remove task from board */}
+
+                          {/* added delete button to remove task from board */}
                         <button className='bg-red-400 rounded-md'
                         onClick={()=>{
                           dispatch({
@@ -238,20 +238,7 @@ export default function App() {
                           payload: {id: task.id}
                         })}}>🗑️</button>
 
-                        
-
-                        {/* <button
-                        onClick={()=>{
-                          dispatch({
-                            type: 'MOVE_TASK',
-                            payload: { 
-                              id: task.id,
-                              newStatus: 'todo'}
-                          })
-                        }}>
-                          Move ➡️
-                        </button> */}
-                        
+                        </div> 
                       </div>
                     )
                   })}
