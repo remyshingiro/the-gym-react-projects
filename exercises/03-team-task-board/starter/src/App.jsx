@@ -233,10 +233,16 @@ export default function App() {
                           {/* added delete button to remove task from board */}
                         <button className='bg-red-400 rounded-md'
                         onClick={()=>{
-                          dispatch({
-                          type: 'DELETE_TASK',
-                          payload: {id: task.id}
-                        })}}>🗑️</button>
+                          const confirmed = window.confirm("Do you want to delete task ?");
+                          if(confirmed){
+                            dispatch({
+                            type: 'DELETE_TASK',
+                            payload: {id: task.id}
+                        })
+                          }
+                          }
+                        
+                        }>🗑️</button>
 
                         </div> 
                       </div>

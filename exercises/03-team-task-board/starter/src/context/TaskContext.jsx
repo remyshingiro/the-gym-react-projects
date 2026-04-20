@@ -1,4 +1,4 @@
-import { useReducer, useContext, createContext } from "react";
+import { useReducer, useContext, createContext, useEffect } from "react";
 import { taskReducer, initialState } from "../reducer/taskReducer.js";
 
 export const TaskContext = createContext();
@@ -14,7 +14,12 @@ function getInitialValue(){
 }
 
 export default function TaskProvider({children}) {
-    const [state, dispatch] = useReducer(taskReducer,initialState, getInitialValue() );
+    const [state, dispatch] = useReducer(taskReducer,initialState, getInitialValue);
+    
+    useEffect(()=>{
+        localStorage.setItem("tasks_state", JSON.stringify(state))
+    }, [state])
+
     return(
         <TaskContext.Provider value={{state, dispatch}}>
         {children}
