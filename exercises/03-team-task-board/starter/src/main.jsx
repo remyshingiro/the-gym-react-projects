@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import TaskProvider from './context/TaskContext.jsx'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Alice from './components/Alice.jsx'
+import Member from './components/MemberTasks.jsx'
 
 createRoot(document.getElementById('root')).render(
   
@@ -12,10 +12,7 @@ createRoot(document.getElementById('root')).render(
     <TaskProvider>
       <Routes>
         <Route path='/' element={<App/>}/>
-        <Route path='/alice' element={<Alice/>}/>
-        <Route path='/bob' element/>
-        <Route path='/carol' element/>
-        <Route path='/david' element/>
+        <Route path='/member/:id' element={<Member/>}/>
         
       </Routes>
       </TaskProvider>
