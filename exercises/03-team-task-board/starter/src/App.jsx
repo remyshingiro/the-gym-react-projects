@@ -61,7 +61,8 @@ export default function App() {
             }).length;
             
             return (
-            <li key={member.id} className="flex items-center gap-2.5">
+            <Link to='/member/{id}'>
+              <li key={member.id} className="flex items-center gap-2.5">
               <img src={member.avatar} alt={member.name} className="w-7 h-7 rounded-full" />
               <div>
                 <p className="text-sm font-medium text-slate-700">{member.name.split(' ')[0]}</p>
@@ -69,7 +70,8 @@ export default function App() {
                 {/* displaying data on ui */}
                 <p className='text-sm font-medium text-slate-700'>{totalTasks} Tasks . {completedTasks} Done</p>
               </div>
-            </li>
+              </li>
+            </Link>
           )})}
         </ul>
       </aside>
