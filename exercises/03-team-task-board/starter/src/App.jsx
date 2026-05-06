@@ -61,7 +61,8 @@ export default function App() {
             }).length;
             
             return (
-            <Link to='/member/{id}'>
+              //navigating the members at dynamic route
+            <Link to={`/member/${member.id}`}>
               <li key={member.id} className="flex items-center gap-2.5">
               <img src={member.avatar} alt={member.name} className="w-7 h-7 rounded-full" />
               <div>
